@@ -59,11 +59,13 @@ def main(argv):
     quick_command = get_quick_command(unknowns)
 
     command_arguments.set_raw_commands(args)
+    if args.radio_station_target:
+        logging.warning(f"Deprecated: {command_arguments.attributes[command_arguments.Type.RadioStationTarget].help}")
 
-    if args.radio_station_target == 'testnet':
+    if args.radio_station_target == 'testnet' or args.testnet:
         args.radio_station_target = conf.URL_CITIZEN_TESTNET
         args.configure_file_path = conf.CONF_PATH_LOOPCHAIN_TESTNET
-    elif args.radio_station_target == 'mainnet':
+    elif args.radio_station_target == 'mainnet' or args.mainnet:
         args.radio_station_target = conf.URL_CITIZEN_MAINNET
         args.configure_file_path = conf.CONF_PATH_LOOPCHAIN_MAINNET
 
@@ -125,9 +127,9 @@ def start_as_rest_server(args):
     api_port = int(args.port) + conf.PORT_DIFF_REST_SERVICE_CONTAINER
     conf_path = conf.CONF_PATH_ICONRPCSERVER_DEV
 
-    if args.radio_station_target == conf.URL_CITIZEN_TESTNET:
+    if args.radio_station_target == conf.URL_CITIZEN_TESTNET or args.testnet:
         conf_path = conf.CONF_PATH_ICONRPCSERVER_TESTNET
-    elif args.radio_station_target == conf.URL_CITIZEN_MAINNET:
+    elif args.radio_station_target == conf.URL_CITIZEN_MAINNET or args.mainnet:
         conf_path = conf.CONF_PATH_ICONRPCSERVER_MAINNET
 
     additional_conf = {
@@ -156,9 +158,9 @@ def start_as_score(args):
     amqp_key = args.amqp_key or conf.AMQP_KEY
     conf_path = conf.CONF_PATH_ICONSERVICE_DEV
 
-    if args.radio_station_target == conf.URL_CITIZEN_TESTNET:
+    if args.radio_station_target == conf.URL_CITIZEN_TESTNET or args.testnet:
         conf_path = conf.CONF_PATH_ICONSERVICE_TESTNET
-    elif args.radio_station_target == conf.URL_CITIZEN_MAINNET:
+    elif args.radio_station_target == conf.URL_CITIZEN_MAINNET or args.mainnet:
         conf_path = conf.CONF_PATH_ICONSERVICE_MAINNET
 
     network_type = conf_path.split('/')[-2]

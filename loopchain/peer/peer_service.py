@@ -255,6 +255,8 @@ class PeerService:
                 command_arguments.Type.AMQPTarget,
                 command_arguments.Type.AMQPKey,
                 command_arguments.Type.ConfigurationFilePath,
+                command_arguments.Type.MainNet,
+                command_arguments.Type.TestNet,
                 command_arguments.Type.RadioStationTarget
             )
 
